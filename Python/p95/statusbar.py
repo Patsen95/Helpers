@@ -1,3 +1,13 @@
+""" StatusBar.py
+	Patryk Sienkiewicz (Patsen95), 2022
+	https://github.com/Patsen95
+
+	File adds simple statusbar widget class with internal container to display
+	labels, buttons, progress bars or text boxes at the bottom of the window.
+	Control allows for access to those widgets, to freely configure them.
+
+"""
+
 import tkinter as tk
 from tkinter import *
 from tkinter import ttk
@@ -115,6 +125,9 @@ class StatusBar(tk.Frame):
 		del self._container[name]
 		self._update()
 
-	def _update(self):
+	def _update(self, force: bool=False):
 		"""Internal method."""
 		self.pack()
+	 	# Tcl's internal event loop doesn't have to be force-updated every time
+		if force == True:
+			self.update()
