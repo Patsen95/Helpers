@@ -1,3 +1,10 @@
+""" excelhelper.py
+	Patryk Sienkiewicz (Patsen95), 2022
+	https://github.com/Patsen95
+
+	This file contains wrapping functions for OpenPyXL modules and adds some new features.
+"""
+
 from openpyxl.styles import NamedStyle
 from openpyxl import Workbook
 from openpyxl.utils import get_column_letter
@@ -7,10 +14,10 @@ from copy import copy
 
 
 def getCellCoord(cellCoord: str) -> int:
-	"""Convert Excel's cell alphanumeric address to column / row index.
+	"""Convert Excel's alphanumeric address to column / row indexes.
 
 	Args:
-		cellCoord: str - cell's alphanumeric address
+		cellCoord: str - alphanumeric address
 
 	Returns:
 		Tuple with column and row indexes
@@ -30,7 +37,7 @@ def getXlAddress(column: int, row: int, zeroIndexed=False) -> str:
 		zeroIndexed: bool - (optional) if True, row & column indexes count from zero
 
 	Returns:
-		Alphanumeric cell address as string
+		Alphanumeric address as string
 	"""
 	if zeroIndexed:
 		row += 1
