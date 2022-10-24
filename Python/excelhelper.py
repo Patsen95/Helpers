@@ -5,6 +5,13 @@
 	This file contains wrapping functions for OpenPyXL modules and adds some new features.
 """
 
+""" excelhelper.py
+	Patryk Sienkiewicz (Patsen95), 2022
+	https://github.com/Patsen95
+
+	This file contains wrapping functions for OpenPyXL modules and adds some new features.
+"""
+
 from openpyxl.styles import NamedStyle
 from openpyxl import Workbook
 from openpyxl.utils import get_column_letter
@@ -68,17 +75,15 @@ def copyStyle(sheet: Workbook, fromCell: str, toCell: str = None): #-> NamedStyl
 
 	for row in sheet.iter_rows(min_col=_start[0], min_row=_start[1], max_col=_end[0], max_row=_end[1]):
 		for cell in row:
-			if cell.has_style:
-				_ns = NamedStyle()
-				_ns.font = copy(cell.font)
-				_ns.border = copy(cell.border)
-				_ns.fill = copy(cell.fill)
-				_ns.number_format = copy(cell.number_format)
-				_ns.protection = copy(cell.protection)
-				_ns.alignment = copy(cell.alignment)
+			_ns = NamedStyle()
+			_ns.font = copy(cell.font)
+			_ns.border = copy(cell.border)
+			_ns.fill = copy(cell.fill)
+			_ns.number_format = copy(cell.number_format)
+			_ns.protection = copy(cell.protection)
+			_ns.alignment = copy(cell.alignment)
 				
-				_styles.append(_ns)
-
+			_styles.append(_ns)
 	return (_start, _end, _styles)
 
 
