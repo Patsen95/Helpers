@@ -5,15 +5,8 @@
 	This file contains wrapping functions for OpenPyXL modules and adds some new features.
 """
 
-""" excelhelper.py
-	Patryk Sienkiewicz (Patsen95), 2022
-	https://github.com/Patsen95
-
-	This file contains wrapping functions for OpenPyXL modules and adds some new features.
-"""
-
-from openpyxl.styles import NamedStyle
 from openpyxl import Workbook
+from openpyxl.styles import NamedStyle
 from openpyxl.utils import get_column_letter
 from openpyxl.utils.cell import coordinate_from_string, column_index_from_string
 from copy import copy
