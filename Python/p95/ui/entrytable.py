@@ -11,7 +11,7 @@ class EntryTable(tk.Frame):
 	_mcols = None
 	_mrows = None
 	_drawBorder = None
-	_container = None
+	_data = None
 	_colNames = None
 
 	def __init__(self, parent: tk.Frame, xpos: int, ypos: int, maxRows: int, colNames: tuple):
@@ -21,52 +21,76 @@ class EntryTable(tk.Frame):
 		self._mcols = len(colNames)
 		self._mrows = maxRows
 		self._drawBorder = True
-		self._container = []
+		self._data = []
 		self._colNames = colNames
 
 		super(EntryTable, self).__init__(parent, width=self._mcols, height=self._mrows, borderwidth=1,
                                   relief=GROOVE)
-		self._makeTable()
-		self._update()
+
+		self._data.insert(0, 3333)
+		# print(len(self._data))
+
+		# self._makeTable()
+		self._draw()
+		# self._update()
 
 	def addRow(self):
 		pass
 
 	def deleteRow(self, row: int):
 		start_idx = self._mcols + self._toIdx(row, 0)
-		del self._container[start_idx: start_idx + self._mcols]
+		del self._data[start_idx: start_idx + self._mcols]
 		self._mrows -= 1
-		self._redrawTable()
+		self._draw()
 
 	def clearCell(self, row: int, col: int):
-		self._container[self._mcols + self._toIdx(row, col)].delete(0, END)
+		self._data[self._mcols + self._toIdx(row, col)].delete(0, END)
 
 	def clearCellByIndex(self, index: int):
-		self._container[self._mcols + index].delete(0, END)
+		self._data[self._mcols + index].delete(0, END)
 
 	def setCell(self, row: int, col: int, value: float):
-		entry = self._container[self._mcols + self._toIdx(row, col)]
+		entry = self._data[self._mcols + self._toIdx(row, col)]
 		entry.delete(0, END)
 		entry.insert(0, str(value))
 
 	def setCellByIndex(self, index: int, value: float):
-		entry = self._container[self._mcols + index]
+		entry = self._data[self._mcols + index]
 		entry.delete(0, END)
 		entry.insert(0, str(value))
 
 	def getCell(self, row: int, col: int) -> float:
-		return float(self._container[self._mcols + self._toIdx(row, col)].get())
+		return float(self._data[self._mcols + self._toIdx(row, col)].get())
 
 	def getCellByIndex(self, index: int) -> float:
-		return float(self._container[self._mcols + index].get())
+		return float(self._data[self._mcols + index].get())
 
 	def getObject(self, row: int, col: int) -> tk.Entry:
-		return self._container[self._toIdx(row, col)]
+		return self._data[self._toIdx(row, col)]
 
 	def getObjectByIndex(self, index: int) -> tk.Entry:
-		return self._container[index]
+		return self._data[index]
 
-	def _makeTable(self):
+	# def _makeTable(self):
+	# 	for r in range(self._mrows + 1):
+	# 		for c in range(self._mcols):
+	# 			idx = self._toIdx(r, c)
+	# 			if r == 0:
+	# 				label = tk.Label(self, text=str(self._colNames[c]))
+	# 				label.config(bd=1, relief=SUNKEN, justify=CENTER, padx=10)
+	# 				label.grid(row=r, column=c, sticky=E+W)
+	# 				self._container.insert(idx, label)
+	# 			else:
+	# 				entry = tk.Entry(self)
+	# 				entry.insert(0, str(idx - self._mcols))
+	# 				entry.config(exportselection=0, justify=CENTER, width=10)
+	# 				entry.grid(row=r, column=c, sticky=E+W)
+	# 				self._container.insert(idx, entry)
+
+	def _draw(self):
+		for wdg in self.winfo_children():
+			wdg.destroy()
+			
 		for r in range(self._mrows + 1):
 			for c in range(self._mcols):
 				idx = self._toIdx(r, c)
@@ -74,26 +98,11 @@ class EntryTable(tk.Frame):
 					label = tk.Label(self, text=str(self._colNames[c]))
 					label.config(bd=1, relief=SUNKEN, justify=CENTER, padx=10)
 					label.grid(row=r, column=c, sticky=E+W)
-					self._container.insert(idx, label)
-				else:
-					entry = tk.Entry(self)
-					entry.insert(0, str(idx - self._mcols))
-					entry.config(exportselection=0, justify=CENTER, width=10)
-					entry.grid(row=r, column=c, sticky=E+W)
-					self._container.insert(idx, entry)
-
-	def _redrawTable(self):
-		for wdg in self.winfo_children():
-			wdg.destroy()
-			
-		for r in range(self._mrows):
-			for c in range(self._mcols):
-				idx = self._toIdx(r, c)
-				if r == 0:
-					label = self._container[idx]
-					label.grid(row=r, column=c, sticky=E+W)
 				else: 
-					entry = self._container[idx]
+					entry = tk.Entry(self)
+					if len(self._data) > 0:
+						entry.insert(0, str(self._data[0]))
+					entry.config(exportselection=0, justify=CENTER, width=10)
 					entry.grid(row=r, column=c, sticky=E+W)
 		self._update()
 

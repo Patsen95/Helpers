@@ -4,9 +4,9 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox
 
-from p95.statusbar import *
-from p95.tableview import *
-from p95.entrytable import *
+# from statusbar import *
+# from tableview import *
+from entrytable import *
 
 
 class Application:
@@ -15,7 +15,7 @@ class Application:
 
 		self.tk = Tk()
 		self.tk.title("UI widgets Test")
-		self.tk.geometry("900x600")
+		self.tk.geometry("320x240")
 		self.window = ttk.Frame(self.tk)
 		# self.window.grid()
 
@@ -32,28 +32,21 @@ class Application:
 
 		# names = ("This is col1", "col2", "col3", "trololoddddddddddddddd")
 		names = ("This is col1", "oiawdoiawd")
-		self.et = EntryTable(self.tk, 100, 100, 3, names)
+		self.et = EntryTable(self.tk, 80, 100, 3, names)
 
-		btn1 = Button(self.window, text="Click me", command=self.click)
+
+
+		btn1 = Button(self.window, text="Delete row", command=self.click)
 		btn1.grid(column=0, row=0)
 
 
 		# self.et.deleteRow(2)
 
 
-
-		# btn1 = Button(self.window, text="Click me")
-		# btn2 = Button(self.window, text="Click me")
-		# btn1.grid(column=0, row=0)
-		# btn2.grid(column=1, row=1)
-
-		# print(self.window.grid_size())
-		# print(self.window.grid_slaves())
-
 		self.window.pack()
 
 	def click(self):
-		self.et.deleteRow(2)
+		self.et.deleteRow(0)
 	
 	def mainLoop(self):
 		self.tk.mainloop()
