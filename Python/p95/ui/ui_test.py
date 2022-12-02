@@ -2,7 +2,6 @@
 
 from tkinter import *
 from tkinter import ttk
-from tkinter import messagebox
 
 # from statusbar import *
 # from tableview import *
@@ -35,18 +34,17 @@ class Application:
 		self.et = EntryTable(self.tk, 80, 100, 3, names)
 
 
-
 		btn1 = Button(self.window, text="Delete row", command=self.click)
 		btn1.grid(column=0, row=0)
 
-
-		# self.et.deleteRow(2)
 
 
 		self.window.pack()
 
 	def click(self):
-		self.et.deleteRow(0)
+		self.et.deleteColumn(0)
+		# self.et.deleteColumn(1)
+
 	
 	def mainLoop(self):
 		self.tk.mainloop()
